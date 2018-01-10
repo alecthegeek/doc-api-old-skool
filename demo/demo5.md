@@ -20,4 +20,4 @@ A diagram
 
 ![A Cool Diagram](demo3.png)
 
-That’s it folks Published on DATE: 2018-01-10 TIME: 12:13:10
+That’s it folks Published on DATE: 2018-01-10 TIME: 12:14:49
