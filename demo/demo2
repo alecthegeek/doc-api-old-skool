@@ -1,0 +1,64 @@
+#!/usr/bin/env bash
+
+# Let's add some code
+
+clear
+
+DEMO=demo2
+
+
+cat > ${DEMO}.xml  <<'EOF'
+<?xml version="1.0"?>
+<methodCall>
+<methodName>getUserAllDetails</methodName>
+<params>
+<param>
+  <value><string>alec</string></value>
+</param>
+</params>
+</methodCall>
+EOF
+
+cat > ${DEMO}.m4  <<'EOF'
+m4_changequote([[, ]])
+# Demo Doc
+
+Let's include some XML!
+
+We need to use M4
+
+```xml
+m4_include([[demo2.xml]])
+```
+
+Let's still have a picture
+
+![A Cool Meme](../../wiki/images/meme.jpg)
+
+That's it folks
+EOF
+
+echo "Let's add a couple of M4 directives in our markdown"
+echo "to include the contents of another file"
+echo ----------------------------------
+cat ${DEMO}.m4
+echo ----------------------------------
+read -p "Press Any Key to run M4 and create a markdown file" -n 1
+
+
+echo 'm4 -P ${DEMO}.m4 > ${DEMO}.pmd'
+m4 -P ${DEMO}.m4 > ${DEMO}.pmd
+
+echo Which gives a markdown file with emebedded XML
+echo ----------------------------------
+cat ${DEMO}.pmd
+echo ----------------------------------
+
+
+read -p "Press Any Key to run Pandoc and create a PDF file" -n 1
+
+echo 'pandoc  -V documentclass=article --number-sections --standalone -f markdown+startnum+smart+yaml_metadata_block --filter pandoc-fignos  -o ${DEMO}.pdf ${DEMO}.pmd'
+pandoc  -V documentclass=article --number-sections --standalone -f markdown+startnum+smart+yaml_metadata_block --filter pandoc-fignos  -o ${DEMO}.pdf ${DEMO}.pmd
+
+read -p "Press Any Key to see the result" -n 1
+open ${DEMO}.pdf

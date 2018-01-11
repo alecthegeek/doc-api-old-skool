@@ -1,0 +1,59 @@
+#!/usr/bin/env bash
+
+# Let's create some GitHub Markup
+
+clear
+DEMO=demo5
+
+echo Here is a script to create a file of GitHub Markup and push it to repo wiki
+
+[[ demo4.pmd ]] || ./demo4
+
+cp demo4.pmd ${DEMO}.pmd
+
+date "+Published on DATE: %Y-%m-%d TIME: %H:%M:%S" >> ${DEMO}.pmd
+
+
+echo "Let's start with the file of Pandoc markdown we created in the last example"
+echo "Notice I've added a date and time to the end"
+
+
+echo 
+echo ----------------------------------
+cat ${DEMO}.pmd
+echo ----------------------------------
+
+read -p "Press any key to create a Wiki file" -n 1
+
+echo pandoc --number-sections --standalone -f markdown+startnum+smart+yaml_metadata_block -t gfm -o ${DEMO}.md ${DEMO}.pmd
+pandoc --number-sections --standalone -f markdown+startnum+smart+yaml_metadata_block -t gfm -o ${DEMO}.md ${DEMO}.pmd
+
+read -p "Press any key to see Wiki file" -n 1
+
+echo 
+echo ----------------------------------
+cat ${DEMO}.md
+echo ----------------------------------
+
+mkdir  ../../wiki/demo/
+cp ${DEMO}.md demo3.png ../../wiki/demo/
+
+cd  ../../wiki/demo/
+
+echo "Now we can pubish on GitHub"
+
+echo
+echo "First commit our wiki file and diagram to Git so we can push"
+
+git add ${DEMO}.md demo3.png
+git commit -m "Added an updated example"
+
+
+read -p "Press any key to publish to GitHUb" -n 1
+git push origin master
+
+
+read -p "and see the result on GitHUb website" -n 1
+
+
+# open https://

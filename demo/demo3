@@ -1,0 +1,97 @@
+#!/usr/bin/env bash
+
+# Let's add diagram
+
+clear
+DEMO=demo3
+
+
+cat > ${DEMO}.plantuml <<'EOF'
+@startuml
+
+collections Clients
+participant Server
+database Database
+
+autonumber "<b>"
+
+activate Clients
+Clients -> Server: HTTP(S) POST request with XML payload
+note left
+  method name and
+  parameter values
+end note
+autonumber stop
+
+activate Server
+Server --> Database: Query
+Server <-- Database: Data
+autonumber resume
+
+alt Success
+  Clients <- Server: HTTP(S) response with XML ""<params>"" element
+
+else Failure
+  Clients <- Server: HTTP(S) response with XML ""<fault>"" element
+end
+
+deactivate Server
+
+deactivate Clients
+
+@enduml
+EOF
+
+echo ----------------------------------
+cat ${DEMO}.plantuml
+echo ----------------------------------
+echo Here is a script to create as simple diagram
+read -p "Let's create a PNG image" -n 1
+
+echo plantuml -tpng ${DEMO}.plantuml
+plantuml -tpng ${DEMO}.plantuml
+
+read -p "Press any key to see the generated png file" -n 1
+
+open ${DEMO}.png
+
+cat > ${DEMO}.m4  <<'EOF'
+m4_changequote([[, ]])
+# Demo Doc
+
+Let's include some XML!
+
+We need to use M4
+
+```xml
+m4_include([[demo2.xml]])
+```
+
+Now we have a diagram
+
+![A Cool Diagram](demo3.png)
+
+That's it folks
+EOF
+
+echo Just add a link to the new image file
+echo ----------------------------------
+cat ${DEMO}.m4
+echo ----------------------------------
+
+read -p "Press any key" -n 1
+echo  So run M4 to create a markdown file
+
+echo 'm4 -P ${DEMO}.m4 > ${DEMO}.pmd'
+m4 -P ${DEMO}.m4 > ${DEMO}.pmd
+
+echo ----------------------------------
+cat ${DEMO}.pmd
+echo ----------------------------------
+
+read -p "Press any key to create a PDF file" -n 1
+
+echo 'pandoc  -V documentclass=article --number-sections --standalone -f markdown+startnum+smart+yaml_metadata_block --filter pandoc-fignos  -o ${DEMO}.pdf ${DEMO}.pmd'
+pandoc  -V documentclass=article --number-sections --standalone -f markdown+startnum+smart+yaml_metadata_block --filter pandoc-fignos  -o ${DEMO}.pdf ${DEMO}.pmd
+
+open ${DEMO}.pdf
