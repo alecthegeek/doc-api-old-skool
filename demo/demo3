@@ -53,7 +53,9 @@ plantuml -tpng ${DEMO}.plantuml
 
 read -p "Press any key to see the generated png file" -n 1
 
-open ${DEMO}.png
+${OPEN} ${DEMO}.png
+
+read -p "Now lets put a reference to that png file in the markdown" -n 1
 
 cat > ${DEMO}.m4  <<'EOF'
 m4_changequote([[, ]])
@@ -94,4 +96,4 @@ read -p "Press any key to create a PDF file" -n 1
 echo 'pandoc  -V documentclass=article --number-sections --standalone -f markdown+startnum+smart+yaml_metadata_block --filter pandoc-fignos  -o ${DEMO}.pdf ${DEMO}.pmd'
 pandoc  -V documentclass=article --number-sections --standalone -f markdown+startnum+smart+yaml_metadata_block --filter pandoc-fignos  -o ${DEMO}.pdf ${DEMO}.pmd
 
-open ${DEMO}.pdf
+${OPEN} ${DEMO}.pdf

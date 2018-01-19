@@ -11,7 +11,7 @@ echo Here is a script to create a file of GitHub Markup and push it to repo wiki
 
 cp demo4.pmd ${DEMO}.pmd
 
-date "+Published on DATE: %Y-%m-%d TIME: %H:%M:%S" >> ${DEMO}.pmd
+date "+Published on %Y-%m-%d at %H:%M" >> ${DEMO}.pmd
 
 
 echo "Let's start with the file of Pandoc markdown we created in the last example"
@@ -35,10 +35,10 @@ echo ----------------------------------
 cat ${DEMO}.md
 echo ----------------------------------
 
-mkdir  ../../wiki/demo/
-cp ${DEMO}.md demo3.png ../../wiki/demo/
 
-cd  ../../wiki/demo/
+cp ${DEMO}.md demo3.png ../../wiki
+
+cd  ../../wiki
 
 echo "Now we can pubish on GitHub"
 
@@ -49,11 +49,13 @@ git add ${DEMO}.md demo3.png
 git commit -m "Added an updated example"
 
 
-read -p "Press any key to publish to GitHUb" -n 1
+read -p "Press any key to publish to GitHub" -n 1
 git push origin master
 
 
 read -p "and see the result on GitHUb website" -n 1
 
 
-# open https://
+${OPEN}  https://github.com/alecthegeek/doc-api-old-skool/wiki/demo5 &
+
+

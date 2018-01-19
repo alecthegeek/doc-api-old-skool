@@ -30,4 +30,5 @@ pandoc  -V documentclass=article --number-sections --standalone -f markdown+star
 
 read -p "Press Any Key to see result" -n 1
 
-open ${DEMO}.pdf
+${OPEN} ${DEMO}.pdf
+

@@ -105,4 +105,5 @@ read -p "Press any key to create a PDF file" -n 1
 echo 'pandoc  -V documentclass=article --number-sections --standalone -f markdown+startnum+smart+yaml_metadata_block --filter pandoc-fignos  -o ${DEMO}.pdf ${DEMO}.pmd'
 pandoc  -V documentclass=article --number-sections --standalone -f markdown+startnum+smart+yaml_metadata_block --filter pandoc-fignos  -o ${DEMO}.pdf ${DEMO}.pmd
 
-open ${DEMO}.pdf
+${OPEN} ${DEMO}.pdf
+

@@ -61,4 +61,5 @@ echo 'pandoc  -V documentclass=article --number-sections --standalone -f markdow
 pandoc  -V documentclass=article --number-sections --standalone -f markdown+startnum+smart+yaml_metadata_block --filter pandoc-fignos  -o ${DEMO}.pdf ${DEMO}.pmd
 
 read -p "Press Any Key to see the result" -n 1
-open ${DEMO}.pdf
+${OPEN} ${DEMO}.pdf
+
