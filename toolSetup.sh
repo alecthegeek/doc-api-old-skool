@@ -61,7 +61,7 @@ rversion=$(rbenv install -l | grep -E '^ +[0-9.]+$'| tail -1)
 rbenv install $rversion
 rbenv global $rversion
 
-# Install Gollum for for Preview
+# Install Gollum for Preview
 sudo apt-get -y install libicu-dev
 gem install gollum rdiscount github-markdown charlock_holmes
 

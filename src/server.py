@@ -35,7 +35,7 @@ def session(id,sec):
 
 
 def authApp(id, sec):
-    """Validate application credetionls and return a sessions ID"""
+    """Validate application credentials and return a session ID"""
     if sessionDatabase[id] == sec:
         return session(id,sec)
     else:
