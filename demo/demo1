@@ -6,12 +6,17 @@ clear
 
 DEMO=demo1
 
+if [[ -z "$OPEN" ]] ; then
+    echo Please set \$OPEN
+    exit -1
+fi
+
 cat > ${DEMO}.pmd  <<'EOF'
 # Demo Doc
 
 This is the start of our docs
 
-Let's have a picture
+Let's have an _important_ picture
 
 ![A Cool Meme](../../wiki/images/meme.jpg)
 
