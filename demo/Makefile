@@ -1,11 +1,11 @@
-#TODO  Tesy and fix
+#TODO  Test and fix
 
-PROJECT:=demo6`
+PROJECT:=demo6
 CURRENT_BRANCH=master
-DOCUMENTCLASS := article
+DOCUMENTCLASS:=article
 
 .SUFFIXES:
-.PHONY: clean all wc pdf html plain pmd wiki preview publish
+.PHONY: clean all wc pdf html plain pmd wiki preview publish clean
 
 PANDOC_FLAGS := --number-sections --standalone -f markdown+startnum+smart+yaml_metadata_block --filter pandoc-fignos
 PANDOC_MD_FLAGS := $(PANDOC_FLAGS) -t gfm --template=_template.markdown
@@ -56,3 +56,5 @@ article/$(PROJECT).md: article/$(PROJECT).pmd  $(IMAGES) _template.markdown $(TH
 	pandoc $(PANDOC_MD_FLAGS) -o $@
 	git add $@
 
+clean:
+	-rm *.bak *.pdf *.pmd *.xml *.plantuml *.md *.py *.png *.m4 
